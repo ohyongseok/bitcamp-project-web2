@@ -6,3 +6,22 @@
  - Gradle 설정 파일 준비(build.gradle)
  - GitIgnore 설정 파일 준비(/.gitignore)
  - README.md 파일 변경
+ 
+ ## 0.2 학생 및 매니저 관리 기능 구현
+  - 프로젝트 기본 패키지 준비
+
+  - bitcamp.java89.ems2 패키지 생성
+      domain 객체 구현
+
+  - bitcamp.java89.ems2.domain 패키지 생성
+      Student.java 클래스 정의
+      DAO 객체 구현, domain 객체 구현
+      MemberDao, StudentDao, ManagerDao, TeacherDao 인터페이스 생성
+      MemberMysqlDao, StudentMysqlDao, ManagerMysqlDao, TeacherMysqlDao 클래스 정의 
+      ManagerMysqlDao 클래스 구현
+
+  - 서블릿 구현
+      StudentListServlet, StudentAddServlet,studentDetailServlet,StudentUpdateServlet,StudentDeleteServlet 클래스 정의  
+      ManagerListServlet, ManagerAddServlet, ManagerDetailServlet, ManagerUpdateServlet, ManagerDeleteServlet 클래스 구현
+
+ 

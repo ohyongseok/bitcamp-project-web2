@@ -16,7 +16,9 @@ repositories {
 }
 
 dependencies {
-  compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
   compile fileTree(dir:'libs', include: '*.jar')
+  
+  // 컴파일 할때만 사용하고 배치에는 포한시키지 않는 라이브러리들 -> 톰켓 서버에는 있기때문에 제외한다.
+  providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
 }
 
