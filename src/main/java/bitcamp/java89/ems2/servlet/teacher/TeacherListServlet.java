@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,6 +34,8 @@ public class TeacherListServlet extends HttpServlet{
       out.println("<title>강사 관리-목록</title>");
       out.println("</head>");
       out.println("<body>");
+      RequestDispatcher rd = request.getRequestDispatcher("/header");
+      rd.include(request, response);
       out.println("<h1>강사 정보</h1>");
       out.println("<a href='form1.html'>추가</a><br>");
       out.println("<table border ='1'>");
@@ -58,10 +61,14 @@ public class TeacherListServlet extends HttpServlet{
         
       }
       out.println("</table>");
+      rd = request.getRequestDispatcher("/footer");
+      rd.include(request, response);
       out.println("</body>");
       out.println("</html>");
     } catch (Exception e) {
-      throw new ServletException(e);
+      RequestDispatcher rd = request.getRequestDispatcher("/error");
+      rd.forward(request, response);
+      return;
     }
   }
 

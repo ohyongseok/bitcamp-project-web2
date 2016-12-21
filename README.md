@@ -23,5 +23,12 @@
   - 서블릿 구현
       StudentListServlet, StudentAddServlet,studentDetailServlet,StudentUpdateServlet,StudentDeleteServlet 클래스 정의  
       ManagerListServlet, ManagerAddServlet, ManagerDetailServlet, ManagerUpdateServlet, ManagerDeleteServlet 클래스 구현
+      
+  ## 03. 포워딩/인클루딩 적용
+   - 서블릿에서 오류가 발생하면 오류를 처리하는 서블릿으로 포워딩 시킨다.
+   - ErroServlet 클래스 정의
+   - 서블릿에 포워드 적용
+   - HeaderServlet 과 FooterServlet적용
+   - 서블릿에 인클루딩 적용
 
  
