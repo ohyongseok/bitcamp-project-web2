@@ -31,12 +31,12 @@ public class StudentDetailServlet extends HttpServlet{
       out.println("<html>");
       out.println("<head>");
       out.println("<meta charset='UTF-8'>");
-      RequestDispatcher rd = request.getRequestDispatcher("/header");
-      rd.include(request, response);
   //      out.println("<meta name='viewport' content='width=device-with, user-scalable=no, maximum-scale=1'>");
       out.println("<title>학생 관리-상세정보</title>");
       out.println("</head>");
       out.println("<body>");
+      RequestDispatcher rd = request.getRequestDispatcher("/header");
+      rd.include(request, response);
       out.println("<h1>학생 정보</h1>");
       out.println("<form action='update' method='post'>");
       

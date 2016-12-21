@@ -33,8 +33,15 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>오류 내용</h1>");
-    
-    out.println("<p>오류가 발생 하였습니다.</p>");
+
+    // 상세한 오류 출력
+    Exception exception = (Exception)request.getAttribute("error");
+    if (exception != null) {
+      out.printf("<pre>%s</pre>\n", exception.getMessage());
+      out.println("<pre>");
+      exception.printStackTrace(out);
+      out.println("</pre>");
+    }
     out.println("</body>");
     out.println("</html>");
     
