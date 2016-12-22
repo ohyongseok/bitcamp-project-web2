@@ -25,7 +25,6 @@ public class StudentAddServlet extends HttpServlet{
       throws ServletException, IOException {
     
     try {
-      request.setCharacterEncoding("UTF-8");
   
       Student student = new Student();
       student.setEmail(request.getParameter("email"));
@@ -48,6 +47,8 @@ public class StudentAddServlet extends HttpServlet{
       out.println("<title>학생관리-등록</title>");
       out.println("</head>");
       out.println("<body>");
+      RequestDispatcher rd = request.getRequestDispatcher("/header");
+      rd.include(request, response);
       out.println("<h1>등록 결과</h1>");
       
       StudentDao studentDao = (StudentDao)this.getServletContext().getAttribute("studentDao");
@@ -66,6 +67,8 @@ public class StudentAddServlet extends HttpServlet{
         
         studentDao.insert(student);
         out.println("<p>등록하였습니다.</p>");
+        rd = request.getRequestDispatcher("/footer");
+        rd.include(request, response);
         out.println("</body>");
         out.println("</html>");
         

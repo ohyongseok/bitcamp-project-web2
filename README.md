@@ -38,10 +38,15 @@
    - 모든 서블릿 코드 변경
    - ErrorServlet 코드 변경
    
-  ## 0.7 - ServletContext 보관소 기능을 사용하여 DAO 공유하기
-            - 기존의 DAO 클래스에서 Singleton 패턴 제거
-            - DataSource 클래스에서 Singleton 패턴 제거
-            - 다른 서블릿이 사용할 DAO 객체를 준비시키는 서블릿을 만든다.
-            - ContextLoaderServlet 클래스 준비
+  ## 0.5 - ServletContext 보관소 기능을 사용하여 DAO 공유하기
+    - 기존의 DAO 클래스에서 Singleton 패턴 제거
+    - DataSource 클래스에서 Singleton 패턴 제거
+    - 다른 서블릿이 사용할 DAO 객체를 준비시키는 서블릿을 만든다.
+    - ContextLoaderServlet 클래스 준비
 
- 
+  ## 0.6 - FIlter 컴포넌트를 사용하여  POST 요청 데이터의 문자집합을 자동으로 설정
+    - CharacterEncodingFilter 클래스 정의
+    - POST 요청 데이터의 문자 집합 지정하는 코드 추가
+    - 서블릿 실행
+    - 인코딩 필터를 DD 파일(web.xml) 등록
+    - 서블릿에 request.CharacterEncodingFilter 설정
