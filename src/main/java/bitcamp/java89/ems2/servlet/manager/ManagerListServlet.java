@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bitcamp.java89.ems2.dao.impl.ManagerMysqlDao;
+import bitcamp.java89.ems2.dao.ManagerDao;
 import bitcamp.java89.ems2.domain.Manager;
 
 @WebServlet("/manager/list")
@@ -21,8 +21,6 @@ public class ManagerListServlet extends HttpServlet{
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
-      ManagerMysqlDao managerDao = ManagerMysqlDao.getInstance();
-      ArrayList<Manager> list = managerDao.getList();
       
       response.setContentType("text/html;charset=UTF-8");
       PrintWriter out = response.getWriter();
@@ -39,6 +37,9 @@ public class ManagerListServlet extends HttpServlet{
       rd.include(request, response);
       
       out.println("<h1>매니저 정보</h1>");
+      ManagerDao managerDao = (ManagerDao)this.getServletContext().getAttribute("managerDao");
+      ArrayList<Manager> list = managerDao.getList();
+      
       out.println("<a href='form2.html'>추가</a><br>");
       out.println("<table border ='1'>");
       out.println("<tr>");

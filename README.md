@@ -37,5 +37,11 @@
    - ErrorServlet은 ServletRequest에 보관된 오류 정보를 꺼내서 출력한다.
    - 모든 서블릿 코드 변경
    - ErrorServlet 코드 변경
+   
+  ## 0.7 - ServletContext 보관소 기능을 사용하여 DAO 공유하기
+            - 기존의 DAO 클래스에서 Singleton 패턴 제거
+            - DataSource 클래스에서 Singleton 패턴 제거
+            - 다른 서블릿이 사용할 DAO 객체를 준비시키는 서블릿을 만든다.
+            - ContextLoaderServlet 클래스 준비
 
  

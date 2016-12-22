@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bitcamp.java89.ems2.dao.impl.StudentMysqlDao;
+import bitcamp.java89.ems2.dao.StudentDao;
 import bitcamp.java89.ems2.domain.Student;
 
 @WebServlet("/student/list")
@@ -21,8 +21,7 @@ public class StudentListServlet extends HttpServlet{
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
-      StudentMysqlDao studentDao = StudentMysqlDao.getInstance();
-      ArrayList<Student> list = studentDao.getList();
+      
       
       response.setContentType("text/html;charset=UTF-8");
       PrintWriter out = response.getWriter();
@@ -39,6 +38,8 @@ public class StudentListServlet extends HttpServlet{
       rd.include(request, response);
       
       out.println("<h1>학생 정보</h1>");
+      StudentDao studentDao = (StudentDao)this.getServletContext().getAttribute("studentDao");
+      ArrayList<Student> list = studentDao.getList();
       out.println("<a href='form.html'>추가</a><br>");
       out.println("<table border ='1'>");
       out.println("<tr>");
