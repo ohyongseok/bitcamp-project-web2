@@ -50,3 +50,9 @@
     - 서블릿 실행
     - 인코딩 필터를 DD 파일(web.xml) 등록
     - 서블릿에 request.CharacterEncodingFilter 설정
+  ## 0.7 - Listener 컴포넌트를 이용하여 웹 애플리케이션에서 사용할 도구 준비하기
+    - 웹 애플리케이션이 시작되면 서블릿들이 공동으로 사용할 객체를 준비시킨다.
+    - ServletConextListener 구현체 준비
+    - ContextLoaderListener 클래스 정의 : 이 클래스는 기존의 ContextLoaderServlet의 역할을 대체
+    
+    
