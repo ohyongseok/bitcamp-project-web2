@@ -39,6 +39,30 @@ public class MemberMysqlDao implements MemberDao {
       ds.returnConnection(con);
     }
   }
+  
+  public boolean exist(String email, String password) throws Exception {
+    Connection con = ds.getConnection(); // 커넥션풀에서 한 개의 Connection 객체를 임대한다.
+    try (
+      PreparedStatement stmt = con.prepareStatement(
+          "select count(*) from memb where email=? and pwd=password(?) "); ) {
+      
+      stmt.setString(1, email);
+      stmt.setString(2, password);
+      ResultSet rs = stmt.executeQuery();
+      
+      rs.next();
+      int count = rs.getInt(1);
+      rs.close();
+      if (count > 0) { // 서버에서 레코드 한 개를 가져왔다면,
+        return true;
+      } else {
+        rs.close();
+        return false;
+      }
+    } finally {
+      ds.returnConnection(con);
+    }
+  }
  
   public void insert(Member member) throws Exception {
     Connection con = ds.getConnection(); // 커넥션풀에서 한 개의 Connection 객체를 임대한다.

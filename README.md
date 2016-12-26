@@ -55,4 +55,10 @@
     - ServletConextListener 구현체 준비
     - ContextLoaderListener 클래스 정의 : 이 클래스는 기존의 ContextLoaderServlet의 역할을 대체
     
-    
+  ## 0.8 - 쿠키를 이용하여 로그인 아이디 저장하기, 로그인 처리
+    - 로그인 폼 생성
+     - LoginServlet.java 생성
+    - MemberDao와 MemberMysqlDao 클래스에 exist(email, password) 매서드 추가
+     - LoginSerlet 클래스에 로그인 처리 코드 추가
+     
+     
