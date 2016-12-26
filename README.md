@@ -61,4 +61,12 @@
     - MemberDao와 MemberMysqlDao 클래스에 exist(email, password) 매서드 추가
      - LoginSerlet 클래스에 로그인 처리 코드 추가
      
-     
+  ## 0.9 세션을 이용하여 로그인 사용자 정보 저장하고 꺼내기
+    - LoginServlet의 doPost() 변경
+     - MemeberDao를 이용하여 로그인 사용자 정보를 가져온다.
+     - 그리고 HttpSessoion 보관소에 저장한다.   
+    - HeaderServlet 변경
+     - 로그인 하지 않은 경우 "로그인 링크" 출력
+     - 로그인 한 경우 "이름과 로그아웃 링크" 출력
+    - LogoutServlet 생성
+     - 세션을 무효화 시킨다.

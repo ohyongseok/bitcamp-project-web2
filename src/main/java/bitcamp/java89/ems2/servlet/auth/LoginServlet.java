@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bitcamp.java89.ems2.dao.MemberDao;
+import bitcamp.java89.ems2.domain.Member;
 
 @WebServlet("/auth/login")
 public class LoginServlet extends HttpServlet{
@@ -90,6 +91,8 @@ public class LoginServlet extends HttpServlet{
       MemberDao memberDao =(MemberDao)this.getServletContext().getAttribute("memberDao");
 
       if (memberDao.exist(email, password)) {
+        Member member =  memberDao.getOne(email);
+        request.getSession().setAttribute("member", member); // HttpSession에 저장한다.
         response.sendRedirect("../student/list");
         return;       
         // 포워드는 포스트에서 포스트 요청 하는것.
