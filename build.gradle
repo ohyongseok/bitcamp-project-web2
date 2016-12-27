@@ -18,7 +18,11 @@ repositories {
 dependencies {
   compile fileTree(dir:'libs', include: '*.jar')
   
-  // 컴파일 할때만 사용하고 배치에는 포한시키지 않는 라이브러리들 -> 톰켓 서버에는 있기때문에 제외한다.
+  //파일 업로드에서 멀티파트 데이터를 처리하는 라이브러리
+  compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.3.2'
+  
+  // 서블릿 컨테이너에서 제공하는 라이브러리 파일을 배포에 포함시켜서는 안된다.
+  // 단지 컴파일할 때만 사용해야 한다.
   providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
 }
 

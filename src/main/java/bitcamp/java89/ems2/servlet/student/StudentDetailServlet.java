@@ -38,7 +38,7 @@ public class StudentDetailServlet extends HttpServlet{
       RequestDispatcher rd = request.getRequestDispatcher("/header");
       rd.include(request, response);
       out.println("<h1>학생 정보</h1>");
-      out.println("<form action='update' method='post'>");
+      out.println("<form action='update' method='post' enctype='multipart/form-data'>");
       
       StudentDao studentDao = (StudentDao)this.getServletContext().getAttribute("studentDao");
         Student student = studentDao.getOne(memberNo);
@@ -74,7 +74,8 @@ public class StudentDetailServlet extends HttpServlet{
         out.printf("<tr><th>최종학교</th><td>"
             + "<input name='schl_nm' type='text' value='%s'></td></tr>\n", student.getSchoolName());
         out.printf("<tr><th>사진</th><td>"
-            + "<input name='path' type='file' value='%s'></td></tr>\n", student.getPhotoPath());
+          +  "<img src='../upload/%s' height='80'>"
+            + "<input name='path' type='file'></td></tr>\n", student.getPhotoPath());
         
         out.println("</table>");
         out.println("<button type='submit'>변경</button>");

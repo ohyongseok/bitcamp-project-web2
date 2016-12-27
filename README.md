@@ -70,3 +70,27 @@
      - 로그인 한 경우 "이름과 로그아웃 링크" 출력
     - LogoutServlet 생성
      - 세션을 무효화 시킨다.
+     
+  ## 1.0 학생/매니저/강사 등록시 사진 업로드 하기
+    - 의존 라이브러리 설정하기
+     - build.gradle 파일에 apache-fileupload 설정하기.
+     - 'gradle eclipse' 명령을 수행하여 이클립스 설정 파일 갱신
+    - 학생사진 업로드
+     - student/form.html 변경
+      - form.html 태그에 enctype 속성 추가
+     -  StudentAddServlet 클래스 변경
+      - fileupload 라이브러리의 클래스를 사용하여 멀티 파트 데이터 처리
+    - 매니저 사진 업로드
+     - mananger/form.html 변경
+      - form.html 태그에 enctype 속성 추가
+     -  ManangerAddServlet 클래스 변경
+      - fileupload 라이브러리의 클래스를 사용하여 멀티 파트 데이터 처리
+     - 매니저 사진을 저장할 클래스 생성
+      - Photo.java 
+     - Teacher 클래스 변경 
+    - 매니저 사진 업로드
+     - teacher/form.html 변경
+      - form.html 태그에 enctype 속성 추가
+     - 도메인객체 준비
+     - TeacherAddServlet 클래스 변경
+      - fileupload 라이브러리의 클래스를 사용하여 멀티 파트 데이터 처리

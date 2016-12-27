@@ -38,7 +38,7 @@ public class ManagerDetailServlet extends HttpServlet{
       RequestDispatcher rd = request.getRequestDispatcher("/header");
       rd.include(request, response);
       out.println("<h1>매니저 정보</h1>");
-      out.println("<form action='update' method='post'>");
+      out.println("<form action='update' method='post' enctype='multipart/form-data'>");
       
       ManagerDao managerDao = (ManagerDao)this.getServletContext().getAttribute("managerDao");
         Manager manager = managerDao.getOne(memberNo);
@@ -62,8 +62,8 @@ public class ManagerDetailServlet extends HttpServlet{
         out.printf("<tr><th>팩스</th><td>"
             + "<input name='fax' type='text' value='%s'></td></tr>\n", manager.getFax());
         out.printf("<tr><th>사진파일경로</th><td>"
-            + "<input name='path' type='file' value='%s'></td></tr>\n", manager.getPath());
-        
+            + " <img src='../upload/%s' height='80'>"
+            + "<input name='path' type='file' ></td></tr>\n", manager.getPath());
         out.println("</table>");
         out.println("<button type='submit'>변경</button>");
         out.printf("<a href='delete?memberNo=%s'>삭제 </a>\n", manager.getMemberNo());

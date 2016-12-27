@@ -2,6 +2,7 @@ package bitcamp.java89.ems2.servlet.student;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,6 +16,7 @@ import bitcamp.java89.ems2.dao.StudentDao;
 import bitcamp.java89.ems2.dao.impl.MemberMysqlDao;
 import bitcamp.java89.ems2.dao.impl.StudentMysqlDao;
 import bitcamp.java89.ems2.domain.Student;
+import bitcamp.java89.ems2.util.MultipartUtil;
 
 @WebServlet("/student/update")
 public class StudentUpdateServlet extends HttpServlet{
@@ -26,17 +28,17 @@ public class StudentUpdateServlet extends HttpServlet{
       throws ServletException, IOException {
     
     try {
-  
+      Map<String, String> dataMap = MultipartUtil.parse(request);
       Student student = new Student();
-      student.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));
-      student.setEmail(request.getParameter("email"));
-      student.setPassword(request.getParameter("password"));
-      student.setName(request.getParameter("name"));
-      student.setTel(request.getParameter("tel"));
-      student.setWorking(Boolean.parseBoolean(request.getParameter("working")));
-      student.setGrade(request.getParameter("lst_schl"));
-      student.setSchoolName(request.getParameter("schl_nm"));
-      student.setPhotoPath(request.getParameter("path"));
+      student.setMemberNo(Integer.parseInt(dataMap.get("memberNo")));
+      student.setEmail(dataMap.get("email"));
+      student.setPassword(dataMap.get("password"));
+      student.setName(dataMap.get("name"));
+      student.setTel(dataMap.get("tel"));
+      student.setWorking(Boolean.parseBoolean(dataMap.get("working")));
+      student.setGrade(dataMap.get("lst_schl"));
+      student.setSchoolName(dataMap.get("schl_nm"));
+      student.setPhotoPath(dataMap.get("path"));
       
       response.setContentType("text/html;charset=UTF-8");
       PrintWriter out = response.getWriter();
@@ -57,7 +59,7 @@ public class StudentUpdateServlet extends HttpServlet{
       
         if (!studentDao.exist(student.getMemberNo())) {
           throw new Exception("사용자를 찾지 못함!!@#!@#!@#!@#!@#");
-        }
+        } 
         
         MemberDao memberDao = (MemberDao)this.getServletContext().getAttribute("memberDao");
         memberDao.update(student);

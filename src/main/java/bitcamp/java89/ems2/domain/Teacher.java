@@ -1,11 +1,16 @@
 package bitcamp.java89.ems2.domain;
 
+import java.util.List;
+
 public class Teacher extends Member {
   private static final long serialVersionUID = 1L;
   
     protected String homepage;
     protected String facebook;
     protected String twit;
+    protected List<Photo> photoList;
+    
+    
     public String getHomepage() {
       return homepage;
     }
@@ -23,6 +28,12 @@ public class Teacher extends Member {
     }
     public void setTwit(String twit) {
       this.twit = twit;
+    }
+    public List<Photo> getPhotoList() {
+      return photoList;
+    }
+    public void setPhotoList(List<Photo> photoList) {
+      this.photoList = photoList;
     }
     
     

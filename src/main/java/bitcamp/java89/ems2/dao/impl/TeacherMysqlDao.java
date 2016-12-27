@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 import bitcamp.java89.ems2.dao.TeacherDao;
+import bitcamp.java89.ems2.domain.Photo;
 import bitcamp.java89.ems2.domain.Teacher;
 import bitcamp.java89.ems2.util.DataSource;
 
@@ -81,6 +83,30 @@ public class TeacherMysqlDao implements TeacherDao {
       stmt.setString(4, teacher.getTwit());
       
       stmt.executeUpdate();
+      this.insertPhotoList(teacher);
+    } finally {
+      ds.returnConnection(con);
+    }
+  }
+  
+  public void insertPhotoList(Teacher teacher) throws Exception {
+    Connection con = ds.getConnection(); // 커넥션풀에서 한 개의 Connection 객체를 임대한다.
+    try (
+      PreparedStatement stmt = con.prepareStatement(
+          "insert into tch_phot(tno, path) values(?,?)");) {
+      
+      List<Photo> photoList = teacher.getPhotoList();
+      for (Photo photo : photoList) {
+        if (photo.getFilePath() == null) {
+          continue;
+        }
+        
+        stmt.setInt(1, teacher.getMemberNo());
+        stmt.setString(2, photo.getFilePath());
+        stmt.executeUpdate();
+        
+      }
+      
     } finally {
       ds.returnConnection(con);
     }
@@ -114,31 +140,47 @@ public class TeacherMysqlDao implements TeacherDao {
   public Teacher getOne(int memberNo) throws Exception {
     Connection con = ds.getConnection(); // 커넥션풀에서 한 개의 Connection 객체를 임대한다.
     try (
+        /*
+         * select name, tel, email, hmpg, fcbk, twit, tpno, path
+              from tcher 
+              left outer join memb on tcher.tno=memb.mno
+              left outer join tch_phot on tcher.tno=tch_phot.tno
+               where tcher.tno=43;
+         */
       PreparedStatement stmt = con.prepareStatement(
-          "select name, tel, email, hmpg, fcbk, twit"
+          "select name, tel, email, hmpg, fcbk, twit, tpno, path"
               + " from tcher left outer join memb on tcher.tno=memb.mno"
-              + " where mno=?");) {
+              + " left outer join tch_phot on tcher.tno=tch_phot.tno"
+              + " where tcher.tno=?");) {
 
       stmt.setInt(1, memberNo);
       ResultSet rs = stmt.executeQuery();
 
-      if (rs.next()) { // 서버에서 레코드 한 개를 가져왔다면,
-        Teacher teacher = new Teacher();
-        teacher.setMemberNo(memberNo);
-        teacher.setEmail(rs.getString("email"));
-        teacher.setName(rs.getString("name"));
-        teacher.setTel(rs.getString("tel"));
-        teacher.setHomepage(rs.getString("hmpg"));
-        teacher.setFacebook(rs.getString("fcbk"));
-        teacher.setTwit(rs.getString("twit"));
+      Teacher teacher = null;
+      ArrayList<Photo> photoList = new ArrayList<>();
+      while (rs.next()) { // 서버에서 레코드 한 개를 가져왔다면,
+        if (teacher == null) {
+          teacher = new Teacher();
+          teacher.setMemberNo(memberNo);
+          teacher.setEmail(rs.getString("email"));
+          teacher.setName(rs.getString("name"));
+          teacher.setTel(rs.getString("tel"));
+          teacher.setHomepage(rs.getString("hmpg"));
+          teacher.setFacebook(rs.getString("fcbk"));
+          teacher.setTwit(rs.getString("twit"));
+        }
+        
+        if (rs.getString("path") != null) {
+          photoList.add(new Photo().setNo(rs.getInt("tpno")).setFilePath(rs.getString("path")));
+        }
+      }
         rs.close();
+        
+        teacher.setPhotoList(photoList);
+        
         return teacher;
         
-      } else {
-        rs.close();
-        return null;
-      }
-    } finally {
+      } finally {
       ds.returnConnection(con);
     }
   }
@@ -157,6 +199,10 @@ public class TeacherMysqlDao implements TeacherDao {
       stmt.setInt(4, teacher.getMemberNo());
       
       stmt.executeUpdate();
+      
+      this.deletePhotoList(teacher);
+      this.insertPhotoList(teacher);
+      
     } finally {
       ds.returnConnection(con);
     }
@@ -169,6 +215,20 @@ public class TeacherMysqlDao implements TeacherDao {
             "delete from tcher where tno=?"); ) {
           
       stmt.setInt(1, memberNo);
+      
+      stmt.executeUpdate();
+    } finally {
+      ds.returnConnection(con);
+    }
+  }
+  
+  public void deletePhotoList(Teacher teacher) throws Exception {
+    Connection con = ds.getConnection(); // 커넥션풀에서 한 개의 Connection 객체를 임대한다.
+    try (
+        PreparedStatement stmt = con.prepareStatement(
+            "delete from tch_phot where tno=?"); ) {
+          
+      stmt.setInt(1, teacher.getMemberNo());
       
       stmt.executeUpdate();
     } finally {
